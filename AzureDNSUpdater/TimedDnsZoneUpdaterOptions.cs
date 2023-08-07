@@ -15,7 +15,15 @@
 
         public List<DnsRecord> GetRecords()
         {
-            _records ??= RecordSet.Split(",", StringSplitOptions.RemoveEmptyEntries).Select(record => new DnsRecord(RecordSet, $"{record}.{Domain}")).ToList();
+            _records ??= RecordSet.Split(",", StringSplitOptions.RemoveEmptyEntries)
+                .Select(record =>
+                {
+                    if (record == "@")
+                    {
+                        return new DnsRecord(RecordSet, Domain);
+                    }
+                    return new DnsRecord(RecordSet, $"{record}.{Domain}");
+                }).ToList();
             return _records;
         }
     }
