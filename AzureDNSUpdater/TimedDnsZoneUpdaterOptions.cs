@@ -20,10 +20,11 @@
                 {
                     if (record == "@")
                     {
-                        return new DnsRecord(RecordSet, Domain);
+                        return new DnsRecord(record, Domain);
                     }
-                    return new DnsRecord(RecordSet, $"{record}.{Domain}");
+                    return new DnsRecord(record, $"{record}.{Domain}");
                 }).ToList();
+
             return _records;
         }
     }
